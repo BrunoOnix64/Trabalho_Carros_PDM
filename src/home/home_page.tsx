@@ -52,6 +52,7 @@ export default class App extends React.Component {
         if(this.state.formularioId != null || this.state.formularioId != undefined) {
             CarroServico.deleteById(id)
         Alert.alert("Registro de carro excluído com sucesso:")
+        this.findAllCarro()
         }
     }
 
@@ -62,15 +63,19 @@ export default class App extends React.Component {
             carro.combustivel = item2
             carro.municipio = item3
 
+            
+
         CarroServico.updateByObjeto(carro).then((response: any) => {
             if(response._array.length >0 && response != null && response != undefined) {
                 Alert.alert("Cadastro Atualizado!");
             }else{
                 Alert.alert("Cadastro não encontrado!")
             }
+            
             }), (error) => {
             console.log(error);
             }
+            this.findAllCarro()
         }
 
         insertCarro=(item1, item2, item3) => {
@@ -83,6 +88,7 @@ export default class App extends React.Component {
         if(insertId == null || insertId == undefined) {
             Alert.alert("Não foi possível inserir o novo carro!")
         }
+            this.findAllCarro()
             return carro
         }
         
